@@ -18,15 +18,23 @@ create table users (
 
 
 
-insert into users (name , score) values ('taguhci',5.8);
+insert into users (name , score) values ('taguhci',15.8);
 insert into users (name , score) values ('koji',5.3);
 insert into users (name , score) values ('dotinstall',7.6);
 insert into users (name , score) values ('Okdog',11);
 insert into users (name , score) values ('takasi',7.3);
-insert into users (name , score) values ('honda',3);
+insert into users (name ) values ('honda');
 
-select * from users;
-desc users;
+
+drop view if exists top3 ;
+create view top3 as select * from users order by score desc limit 3;
+select * from top3;
+
+
+-- select count(score) from users_with_team;
+-- select count(id) from users_with_team;
+-- select count(*) from users_with_team;
+
 
 
 -- create table users_empty like users;
@@ -35,19 +43,29 @@ desc users;
 -- create table users_copy as select * from users;
 -- select * from users_copy;
 
-drop table if exists users_with_team;
-create table users_with_team as 
-SELECT
-  id,
-  name,
-  score,
-  CASE
-    when score > 8.0 then 'team-A'
-    when score > 6.0 then 'team-B'
-    else 'team-C'
-  END as team
-from users
-order by score desc;
+-- drop table if exists users_with_team;
+-- create table users_with_team as 
+-- SELECT
+--   id,
+--   name,
+--   score,
+--   CASE
+--     when score > 8.0 then 'team-A'
+--     when score > 6.0 then 'team-B'
+--     else 'team-C'
+--   END as team
+-- from users;
+
+
+
+
+-- select sum(score), team from () as t group by team having sum(score) >12.0;
+
+
+
+-- select * from users;
+-- select count(distinct team) from users_with_team order by team;
+
 
 -- select * from users_with_team;
 -- select * from users;
